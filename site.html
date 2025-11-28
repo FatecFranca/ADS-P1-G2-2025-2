@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa da Sopa de Restinga</title>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'League Spartan', Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #202380 0%, #3650cb 100%);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 1rem;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .header-logo {
+            width: 120px;
+            height: auto;
+        }
+
+        .header-text h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .header-text p {
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 1000px;
+            height: 500px;
+            margin: 3rem auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(32, 35, 128, 0.2);
+        }
+
+        .carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .carousel img.active {
+            display: block;
+        }
+
+        .carousel button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(32, 35, 128, 0.7);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .carousel button:hover {
+            background-color: rgba(32, 35, 128, 0.95);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel .prev {
+            left: 20px;
+        }
+
+        .carousel .next {
+            right: 20px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .carousel-indicators button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid white;
+            background-color: transparent;
+            cursor: pointer;
+            padding: 0;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .carousel-indicators button.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+
+        section {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        section h2 {
+            color: #202380;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        section p {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: justify;
+            color: #444;
+            font-weight: 400;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #202380 0%, #3650cb 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 5px 20px rgba(54, 80, 203, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: white;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .cta {
+            background: linear-gradient(135deg, #202380 0%, #3650cb 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(32, 35, 128, 0.3);
+            display: block;
+            margin: 2rem auto 0;
+        }
+
+        .cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(32, 35, 128, 0.4);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #202380 10%, #3650cb 100%);
+            color: white;
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer-logo img {
+            max-width: 220px;
+            height: auto;
+            filter: brightness(1.1);
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+        }
+
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-info li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 1rem;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .contact-info a:hover {
+            opacity: 0.8;
+        }
+
+        .social-links {
+            text-align: center;
+        }
+
+        .social-links p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: #a0ddf7;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 2.2rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.3);
+            color: #a0ddf7;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(160, 221, 247, 0.3);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+
+            .header-logo {
+                width: 100px;
+            }
+
+            .header-text h1 {
+                font-size: 2rem;
+            }
+
+            .carousel {
+                height: 350px;
+                margin: 2rem 1rem;
+            }
+
+            section {
+                margin: 3rem auto;
+                padding: 0 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .contact-info li {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <img src="logo.png" alt="Logo Casa da Sopa" class="header-logo">
+            <div class="header-text">
+                <h1>Casa da Sopa de Restinga</h1>
+                <p>Trabalho, Solidariedade, Tolerância</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="carousel">
+        <img src="refeitorio.webp" alt="Refeitório - Crianças sendo atendidas" class="active">
+        <img src="palestra.webp" alt="Palestra com crianças e famílias">
+        <img src="festa.webp" alt="Festa comemorativa com as crianças">
+
+        <button class="prev" aria-label="Imagem anterior">&#10094;</button>
+        <button class="next" aria-label="Próxima imagem">&#10095;</button>
+        
+        <div class="carousel-indicators">
+            <button class="active" aria-label="Imagem 1"></button>
+            <button aria-label="Imagem 2"></button>
+            <button aria-label="Imagem 3"></button>
+        </div>
+    </div>
+
+    <section id="sobre">
+        <h2>Sobre Nós</h2>
+        <p>A Sociedade Espírita de Restinga, conhecida como Casa da Sopa de Restinga, foi fundada em 1949 e atua há mais de 75 anos no atendimento a crianças e adolescentes entre 04 e 17 anos em situação de vulnerabilidade social. Nossa atuação é pautada pela não discriminação de etnia, credo religioso ou qualquer outra condição, promovendo um ambiente inclusivo e acolhedor.</p>
+        <br>
+        <p>Nossa missão é promover a cidadania, defender os direitos e melhorar a qualidade de vida de crianças e adolescentes, oferecendo serviços fundamentados na Política Nacional de Assistência Social e no Estatuto da Criança e do Adolescente. Buscamos fortalecer vínculos familiares e comunitários, garantindo um desenvolvimento integral e saudável para todos os atendidos.</p>
+        <br>
+        <p>A entidade é mantida por doações da comunidade, vendas e promoções como bazares e eventos solidários. Cada contribuição é essencial para continuarmos transformando vidas através do trabalho, solidariedade e tolerância.</p>
+    </section>
+
+    <section id="servicos">
+        <h2>Nossos Serviços</h2>
+        <p style="text-align: center; margin-bottom: 2rem;">Oferecemos o Serviço de Convivência e Fortalecimento de Vínculos para 65 crianças e adolescentes de 06 a 15 anos, com diversas atividades socioeducativas voltadas ao desenvolvimento integral:</p>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>🎨 Oficinas de Arte</h3>
+                <p>Atividades artísticas que estimulam a criatividade, expressão e desenvolvimento de habilidades manuais e cognitivas.</p>
+            </div>
+            
+            <div class="service-card">
+                <h3>⚽ Atividades Esportivas</h3>
+                <p>Práticas esportivas que promovem saúde, trabalho em equipe, disciplina e convivência saudável entre os participantes.</p>
+            </div>
+            
+            <div class="service-card">
+                <h3>📚 Atividades Culturais</h3>
+                <p>Acesso à cultura através de leituras, teatro, música e outras manifestações que expandem o universo cultural dos atendidos.</p>
+            </div>
+            
+            <div class="service-card">
+                <h3>🧸 Brinquedoteca</h3>
+                <p>Espaço lúdico onde crianças desenvolvem habilidades sociais, cognitivas e emocionais através do brincar.</p>
+            </div>
+            
+            <div class="service-card">
+                <h3>👨‍👩‍👧 Fortalecimento de Vínculos</h3>
+                <p>Ações focadas no fortalecimento dos laços familiares e comunitários, promovendo o respeito intergeracional.</p>
+            </div>
+            
+            <div class="service-card">
+                <h3>🎓 Apoio Educacional</h3>
+                <p>Acompanhamento para garantir acesso, permanência e sucesso no sistema educacional formal.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato">
+        <h2>Entre em Contato</h2>
+        <p style="text-align: center;">Estamos prontos para atender você e esclarecer dúvidas sobre nosso trabalho social. Entre em contato conosco!</p>
+        <button class="cta" onclick="window.location.href='mailto:casa_dasopa@hotmail.com'">Fale Conosco</button>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="logo.png" alt="Logo Casa da Sopa de Restinga">
+            </div>
+
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <ul class="contact-info">
+                    <li>📞 <a href="tel:+5516997245252">(16) 99724-5252</a></li>
+                    <li>📞 <a href="tel:+5516991056719">(16) 99105-6719</a></li>
+                    <li>📞 <a href="tel:+5516991333776">(16) 99133-3776</a></li>
+                    <li>✉️ <a href="mailto:casa_dasopa@hotmail.com">casa_dasopa@hotmail.com</a></li>
+                    <li>📍 R. Ângelo Felício, 107<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Centro | Restinga - SP</li>
+                </ul>
+            </div>
+
+            <div class="footer-section social-links">
+                <h3>Redes Sociais</h3>
+                <p>Fique por dentro de tudo o que fazemos!</p>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/casadasopaderestinga/" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram">📷</a>
+                    <a href="https://www.facebook.com/p/Solidariedade-a-Casa-da-Sopa-Restinga-100070758259581/?locale=pt_BR" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook">👥</a>
+                    <a href="https://bit.ly/YoutubeCasaDaSopa" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">▶️</a>
+                    <a href="https://wa.me/5516991333776" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp">💬</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Casa da Sopa de Restinga - Todos os direitos reservados</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">CNPJ: 51.820.991/0001-90</p>
+        </div>
+    </footer>
+
+    <script>
+        const images = document.querySelectorAll('.carousel img');
+        const indicators = document.querySelectorAll('.carousel-indicators button');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        let currentIndex = 0;
+
+        function showImage(index) {
+            images.forEach((img, i) => {
+                img.classList.toggle('active', i === index);
+            });
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === index);
+            });
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        });
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentIndex = index;
+                showImage(currentIndex);
+            });
+        });
+
+        // Troca automática a cada 5 segundos
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        }, 5000);
+    </script>
+
+</body>
+</html>
