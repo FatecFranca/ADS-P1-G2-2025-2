@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'League Spartan', Arial, sans-serif;
+            background: linear-gradient(135deg, #a0ddf7 0%, #e8f7fd 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #202380 0%, #3650cb 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(32, 35, 128, 0.3);
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            transition: transform 0.3s;
+        }
+
+        .menu-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .menu-icon div {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .user-profile:hover {
+            transform: scale(1.05);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: flex-start;
+            /* Ícone alinhado ao topo */
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .user-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #a0ddf7 0%, #ffffff 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-icon::before {
+            content: "👤";
+        }
+
+        .user-profile p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .site-link {
+            margin-top: 5px;
+        }
+
+        .site-link a {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #202380 0%, #3650cb 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(32, 35, 128, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .site-link a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(32, 35, 128, 0.4);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            padding: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            text-decoration: none;
+            color: #202380;
+            box-shadow: 0 8px 25px rgba(32, 35, 128, 0.15);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #202380 0%, #3650cb 50%, #a0ddf7 100%);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(32, 35, 128, 0.25);
+            border-color: #3650cb;
+        }
+
+        .icon-placeholder {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #202380 0%, #3650cb 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(32, 35, 128, 0.3);
+        }
+
+        .card:hover .icon-placeholder {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, #3650cb 0%, #a0ddf7 100%);
+        }
+
+        .card:nth-child(1) .icon-placeholder::before {
+            content: "📦";
+        }
+
+        .card:nth-child(2) .icon-placeholder::before {
+            content: "📊";
+        }
+
+        .card:nth-child(3) .icon-placeholder::before {
+            content: "🎁";
+        }
+
+        .card:nth-child(4) .icon-placeholder::before {
+            content: "🛒";
+        }
+
+        .card p {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #202380;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+
+            .user-profile p {
+                display: none;
+            }
+
+            .user-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            main {
+                margin: 3rem auto;
+                padding: 0 1.5rem;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .card {
+                padding: 2rem 1.5rem;
+            }
+
+            .icon-placeholder {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+
+            .card p {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="menu-icon">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <h1 class="logo">STOQ</h1>
+
+        <div class="user-profile">
+            <div class="user-icon"></div>
+
+            <div class="user-info">
+                <p>Usuário</p>
+                <div class="site-link">
+                    <a href="site.html">Nosso Site</a>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <main>
+        <div class="grid-container">
+            <a href="estoque.html" target="_blank" class="card">
+                <div class="icon-placeholder"></div>
+                <p>Estoque</p>
+            </a>
+
+            <a href="relatorio.html" target="_blank" class="card">
+                <div class="icon-placeholder"></div>
+                <p>Relatório</p>
+            </a>
+
+            <a href="doacao.html" target="_blank" class="card">
+                <div class="icon-placeholder"></div>
+                <p>Doação</p>
+            </a>
+
+            <a href="compra.html" target="_blank" class="card">
+                <div class="icon-placeholder"></div>
+                <p>Compras</p>
+            </a>
+        </div>
+    </main>
+</body>
+
+</html>
